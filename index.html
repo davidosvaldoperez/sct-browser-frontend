@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>IHTSDO SNOMED CT Browser</title>
+        <title>IHTSDO SNOMED CT Tech Preview Browser</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width">
 		<meta name="description" content="IHTSDO SNOMED CT Browser">
@@ -42,10 +42,11 @@
             var currentPerspective = "home";
 
             var options = {
-                serverUrl: "http://107.170.34.200/api/snomed",
+                    serverUrl: "http://127.0.0.1:3000/snomed",
+//                    serverUrl: "http://107.170.34.200/api/snomed",
 //                serverUrl: "http://107.170.143.181/api/snomed",
-                edition: "en-edition",
-                release: "v20150131",
+                edition: "MolecularEntityTechPreview_edition",
+                release: "v20150401",
                 showIds: false,
                 hideNotAcceptable: true,
                 displayInactiveDescriptions: false,
@@ -63,7 +64,6 @@
                 statusSearchFilter: "activeOnly",
                 highlightByEffectiveTime: "false"
             };
-
             var manifests;
             xhrM = $.getJSON(options.serverUrl.replace("snomed", "") + "server/releases", function (result) {
                 // nothing
@@ -75,11 +75,11 @@
                     autoHide: false,
                     className: "error"
                 });
-//                alert("Error Terminolgy server not accesed");
+                alert("Error Terminolgy server not accesed");
                 console.log("fail Manifest");
             });
-            $.when(xhrM).done(function(){
-                xhr = $.getJSON("http://107.170.22.98/api/snomed".replace("snomed", "") + "server/releases", function (result) {
+            /*$.when(xhrM).done(function(){
+                xhr = $.getJSON("http://127.0.0.1:3000/api/snomed".replace("snomed", "") + "server/releases", function (result) {
                     // nothing
                 }).done(function (result) {
                     $.each(result, function (i, field){
@@ -93,7 +93,7 @@
 //                console.log("fail Manifest");
                 });
             });
-            $.when(xhrM).done(function(){
+             $.when(xhrM).done(function(){
                 xhr = $.getJSON("http://107.170.178.177/api/snomed".replace("snomed", "") + "server/releases", function (result) {
                     // nothing
                 }).done(function (result) {
@@ -122,7 +122,7 @@
                     });
 //                console.log("fail Manifest");
                 });
-            });
+            }); */
 
             var tours = {};
             var tour;
@@ -146,7 +146,8 @@
             } ();
 
             function start() {
-                // Read parameters
+				console.log("a");
+            	// Read parameters
                 if (typeof QueryString.dev != "undefined") {
                     console.log("Using Dev Server...");
                     //options.serverUrl = "http://107.170.33.116/api";
@@ -162,13 +163,13 @@
 
                 var edition = QueryString.edition;
                 if (typeof edition == "undefined" || edition == null || edition == "") {
-                    edition = "en-edition";
+                    edition = "MolecularEntityTechPreview-edition";
                 }
                 options.edition = edition;
 
                 var release = QueryString.release;
                 if (typeof release == "undefined" || release == null || release == "") {
-                    release = "v20150131";
+                    release = "v20150401";
                 }
                 options.release = release;
 
@@ -251,173 +252,9 @@
                 if (!options.acceptLicense) {
                     $('#license-modal').modal('show');
                 }
-
 //                verifyDate(release)
             }
 
-            function initTour() {
-                if (typeof  tours[selectedLanguage]  == "undefined") {
-                    tours[selectedLanguage] = new Tour({
-                        steps: [
-                            {
-                                element: "nothing",
-                                title: i18n_tour_step1_fh_title,
-                                content: i18n_tour_step1_fh_text,
-                                placement: "bottom",
-                                orphan: true,
-                                backdrop: false,
-                                onShow: function (tour) { switchToFullHeight(204351007, 138875005) }
-                            },
-                            {
-                                element: "#fh-tabs-pane",
-                                title: i18n_tour_step2_title,
-                                content: i18n_tour_step2_text,
-                                placement: "right",
-                                backdrop: true
-                            },
-                            {
-                                element: "#fh-taxonomy_canvas-taxonomyConfigBar",
-                                title: i18n_tour_step5_title,
-                                content: i18n_tour_step5_text,
-                                placement: "bottom",
-                                backdrop: true
-                            },
-                            {
-                                element: "#fh-taxonomy_canvas-treenode-404684003",
-                                title: i18n_tour_step10_title,
-                                content: i18n_tour_step10_text,
-                                placement: "right",
-                                backdrop: true
-                            },
-                            {
-                                element: "#fh-taxonomy_canvas-treeicon-404684003",
-                                title: i18n_tour_step11_title,
-                                content: i18n_tour_step11_text,
-                                placement: "right",
-                                backdrop: true
-                            },
-                            {
-                                element: "#fh-tabs",
-                                title: i18n_tour_step2_5_title,
-                                content: i18n_tour_step2_5_text,
-                                placement: "bottom",
-                                backdrop: true,
-                                onNext: function (tour) { $('#fh-tabs li:eq(1) a').tab('show')  }
-                            },
-                            {
-                                element: "#fh-tabs-pane",
-                                title: i18n_tour_step3_title,
-                                content: i18n_tour_step3_text,
-                                placement: "right",
-                                backdrop: true
-                            },
-                            {
-                                element: "#fh-search_canvas-searchConfigBar",
-                                title: i18n_tour_step6_title,
-                                content: i18n_tour_step6_text,
-                                placement: "bottom",
-                                backdrop: true
-                            },
-                            {
-                                element: "#fh-search_canvas",
-                                title: i18n_tour_step12_title,
-                                content: i18n_tour_step12_text,
-                                placement: "right",
-                                backdrop: true
-                            },
-                            {
-                                element: "#fh-search_canvas-historyButton",
-                                title: i18n_tour_step13_title,
-                                content: i18n_tour_step13_text,
-                                placement: "left",
-                                backdrop: true,
-                                onNext: function (tour) { $('#fh-tabs li:eq(0) a').tab('show')  }
-                            },
-                            {
-                                element: "#fh-cd1_canvas",
-                                title: i18n_tour_step4_title,
-                                content: i18n_tour_step4_text,
-                                placement: "left",
-                                backdrop: true
-                            },
-                            {
-                                element: "#fh-cd1_canvas-configButton",
-                                title: i18n_tour_step7_title,
-                                content: i18n_tour_step7_text,
-                                placement: "left",
-                                backdrop: true
-                            },
-                            /*{
-                                element: "#fh-taxonomy_canvas-linkerButton",
-                                title: i18n_tour_step8_title,
-                                content: i18n_tour_step8_text,
-                                placement: "left",
-                                backdrop: true
-                            },
-                            {
-                                element: "#bp-taxonomy_canvas-subscribersMarker",
-                                title: i18n_tour_step9_title,
-                                content: i18n_tour_step9_text,
-                                placement: "right",
-                                backdrop: true
-                            },*/
-                            {
-                                element: "#details-tabs-fh-cd1_canvas",
-                                title: i18n_tour_step13_1_title,
-                                content: i18n_tour_step13_1_text,
-                                placement: "bottom",
-                                backdrop: true
-                            },
-                            {
-                                element: "#fh-cd1_canvas-panelBody",
-                                title: i18n_tour_step13_2_title,
-                                content: i18n_tour_step13_2_text,
-                                placement: "left",
-                                backdrop: true,
-                                onNext: function (tour) { $('#details-tabs-fh-cd1_canvas li:eq(1) a').tab('show')  }
-                            },
-                            {
-                                element: "#fh-cd1_canvas-panelBody",
-                                title: i18n_tour_step13_3_title,
-                                content: i18n_tour_step13_3_text,
-                                placement: "left",
-                                backdrop: true
-                            },
-                            {
-                                element: "#fh-cd1_canvas-attributesClip",
-                                title: i18n_tour_step14_title,
-                                content: i18n_tour_step14_text,
-                                placement: "left",
-                                backdrop: true,
-                                onNext: function (tour) { initialize() }
-                            },
-                            {
-                                element: "nothing",
-                                title: i18n_tour_step15_title,
-                                content: i18n_tour_step15_text,
-                                placement: "bottom",
-                                orphan: true,
-                                backdrop: true
-                            }
-                        ],
-                        storage: false,
-                        debug: false,
-                        template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« " + i18n_tour_prev + "</button><span data-role='separator'>|</span><button class='btn btn-default' data-role='next'>" + i18n_tour_next + " »</button><button class='btn btn-default' data-role='end'>" + i18n_tour_end_tour + "</button></div></div>"
-                    });
-                    tour = tours[selectedLanguage];
-                    tour.init();
-                } else {
-                    tour = tours[selectedLanguage];
-                }
-            }
-
-            function tourStart() {
-                if (tour.ended()) {
-                    tour.restart();
-                } else {
-                    tour.start();
-                }
-            }
             function initialize() {
                 componentsRegistry = [];
                 postal.unsubscribeFor();
@@ -622,8 +459,8 @@
             }
 
             function switchRelease(label, edition, release, langRefset, serverUrl) {
-//                verifyDate(release);
-                if (langRefset == "31000146106"){
+            	//                verifyDate(release);
+            	if (langRefset == "31000146106"){
                     options.hideNotAcceptable = false;
                 }
                 postal.unsubscribeFor();
@@ -635,12 +472,15 @@
                 }
                 var i = 0;
                 var releaseName = release.substring(1, 9);
-//                console.log(releaseName);
+                console.log("db name = " + manifests[0].databaseName);
+                console.log("edition = " + edition);
+                console.log("effectiveTime = " + manifests[0].effectiveTime);
+                console.log("releaseName = " + releaseName);
                 while (i < manifests.length && manifests[i].databaseName != edition || manifests[i].effectiveTime != releaseName){
-                    i++;
-                }
-//                console.log(manifests[i].databaseName);
-//                console.log(manifests[i].effectiveTime);
+                    console.log(manifests[i].databaseName);
+                    console.log(manifests[i].effectiveTime);
+                   i++;
+                 }
 
                 if (i < manifests.length){
                     options.manifest = manifests[i];
@@ -704,12 +544,11 @@
                         console.log($(this).attr('data-i18n-id') + " = " + $(this).html());
                     }
                 });
-                initTour();
                 $("#navBarBrand").tooltip().tooltip('destroy');
                 $("#navBarBrand").tooltip({
                     placement : 'bottom',
                     trigger: 'hover',
-                    title: i18n_go_back_home,
+                    title: "Go back home",
                     animation: true,
                     delay: 1000
                 });
@@ -763,26 +602,19 @@
         <!--        <img class="pull-left " src="img/box-logo.png" style="height:50px" alt="IHTSDO delivering SNOMED, the global clinical terminology"> -->
                 <a class="navbar-brand" href="javascript:void(0);" onclick="initialize();" id="navBarBrand">
                     <strong>
-                     	&nbsp;&nbsp;IHTSDO SNOMED CT Browser</strong></a>
+                     	&nbsp;&nbsp;IHTSDO SNOMED CT Technology Preview Browser</strong></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left: 20px; padding-right: 20px;">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="navbar-btn" id="edition-selector">
+                       <li class="navbar-btn" id="edition-selector">
                             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                                <span class="i18n" data-i18n-id="i18n_release">Release</span>:&nbsp;<span id="editionLabel">International Edition 20150131</span> <span class="caret"></span>
+                                <span class="i18n" data-i18n-id="i18n_release">Release</span>:&nbsp;<span id="editionLabel">MolecularEntityTechPreview Edition 20150401</span> <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:void(0);" onclick="switchRelease('International Edition 20150131', 'en-edition', 'v20150131', '900000000000509007', 'http://107.170.34.200/api/snomed');reloadCurrentPerspective();">International Edition 20150131</a></li>
-                                <li><a href="javascript:void(0);" onclick="switchRelease('Spanish Edition 20140430', 'es-edition', 'v20140430', '450828004');reloadCurrentPerspective();">Spanish Edition 20140430</a></li>
-                                <li><a href="javascript:void(0);" onclick="switchRelease('Australian Edition 20140531', 'au-edition', 'v20140531', '46011000052107', 'http://107.170.178.177/api/snomed');reloadCurrentPerspective();">Australian Edition 20140531</a></li>
-                                <li><a href="javascript:void(0);" onclick="switchRelease('Danish Edition 20150206', 'dk-edition', 'v20150206', '554461000005103','http://107.170.143.181/api/snomed');reloadCurrentPerspective();">Danish Edition 20150206</a></li>
-                                <li><a href="javascript:void(0);" onclick="switchRelease('Netherlands Edition 20140731', 'nl-edition', 'v20140731', '31000146106', 'http://107.170.22.98/api/snomed');reloadCurrentPerspective();">NL Edition 20140731</a></li>
-                                <li><a href="javascript:void(0);" onclick="switchRelease('Swedish Edition 20141130', 'se-edition', 'v20141130', '46011000052107', 'http://107.170.34.200/api/snomed');reloadCurrentPerspective();">Swedish Edition 20141130</a></li>
-                                <li><a href="javascript:void(0);" onclick="switchRelease('United Kingdom Edition 20141001', 'uk-edition', 'v20141001', '999001251000000103', 'http://107.170.178.177/api/snomed');reloadCurrentPerspective();">UK Edition 20141001</a></li>
-                                <li><a href="javascript:void(0);" onclick="switchRelease('United States Edition 20150301', 'us-edition', 'v20150301', '900000000000509007', 'http://107.170.178.177/api/snomed');reloadCurrentPerspective();">US Edition 20150301</a></li>
+                                <li><a href="javascript:void(0);" onclick="switchRelease('MolecularEntityTechPreview Edition 20150401', 'MolecularEntityTechPreview-edition', 'v20150401', '900000000000509007', 'http://localhost:3000/snomed');reloadCurrentPerspective();">MolecularEntityTechPreview 20150401</a></li>
                             </ul>
-                        </li>
+                        </li> 
                         <li class="navbar-btn" id="perspective-selector">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                 <span class="i18n" data-i18n-id="i18n_perspective">Perspective</span>:&nbsp;<span id="perspectiveLabel"><em>...</em></span> <span class="caret"></span>
@@ -811,20 +643,21 @@
                                 <li><a href="http://www.ihtsdo.org" target="_blank">IHTSDO.org</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
+<!--                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="nav-selected-flag"></span> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="javascript:void(0);" onclick="switchLanguage('en_US', 'img/flags/us.png', true);"><img src="img/flags/us.png"> English</a></li>
                                 <li><a href="javascript:void(0);" onclick="switchLanguage('es', 'img/flags/es.png', true);"><img src="img/flags/es.png"> Español</a></li>
-<!--                                <li><a href="javascript:void(0);" onclick="switchLanguage('pt', 'img/flags/pt.png', true);"><img src="img/flags/pt.png"> Portuguese</a></li>
+                                <li><a href="javascript:void(0);" onclick="switchLanguage('pt', 'img/flags/pt.png', true);"><img src="img/flags/pt.png"> Portuguese</a></li>
                                 <li><a href="javascript:void(0);" onclick="switchLanguage('en_GB', 'img/flags/gb.png', true);"><img src="img/flags/gb.png"> English (GB)</a></li>
-                                <li><a href="javascript:void(0);" onclick="switchLanguage('se', 'img/flags/se.png', true);"><img src="img/flags/se.png"> Swedish</a></li> -->
+                                <li><a href="javascript:void(0);" onclick="switchLanguage('se', 'img/flags/se.png', true);"><img src="img/flags/se.png"> Swedish</a></li> 
                                 <li><a href="javascript:void(0);" onclick="switchLanguage('da', 'img/flags/dk.png', true);"><img src="img/flags/dk.png"> Dansk</a></li>
                                 <li><a href="javascript:void(0);" onclick="switchLanguage('pt', 'img/flags/pt.png', true);"><img src="img/flags/pt.png"> Português</a></li>
                                 <li class="divider"></li>
                                 <li style="margin: 5px;"><em><span class="i18n text-muted small" data-i18n-id="i18n_translation_warning">This option only applies to the Browser. Terminology language depends on the selected edition.</span></em></li>
                             </ul>
                         </li>
+-->
                         <li>
                             <p class="pull-right"><a href="http://www.ihtsdo.org" target="_blank"><img class="pull-right visible-lg" src="img/newlogo.png" alt="IHTSDO delivering SNOMED, the global clinical terminology"></a>
                         </li>
@@ -842,31 +675,9 @@
                     <p><span class="i18n" data-i18n-id="i18n_home1">The IHTSDO SNOMED CT Browser provides ways to browse and search SNOMED CT. The browser has been implemented as part of development within the IHTSDO Open Tooling Framework, by the IHTSDO and its development partners</span></p>
                     <p><span class="i18n" data-i18n-id="i18n_home5">The Browser is provided by the IHTSDO to anyone for reference purposes. There are other tools developed by IHTSDO for Members for the use in health care settings. </span></p>
                     <p><span class="i18n" data-i18n-id="i18n_home3">Please provide any feedback by clicking on the feedback button at the top of the page. Your feedback is essential to the evolution and improvement of this service.</span></p>
-                    <h2><span class="i18n" data-i18n-id="i18n_international_editions">International Editions</span></h2>
+                    <h2><span class="i18n" data-i18n-id="i18n_international_editions">Tech Preview Editions</span></h2>
                     <p>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('International Edition 20150131', 'en-edition', 'v20150131', '900000000000509007', 'http://107.170.34.200/api/snomed');switchToFullHeight(404684003, 138875005);"><img src="img/box-logo.png" style="height:20px">&nbsp;&nbsp;&nbsp;<span class="i18n"data-i18n-id="i18n_go_browsing">Go browsing...</span><br><span class="small    ">International edition<br>January 2015</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Spanish Edition 20140430', 'es-edition', 'v20140430', '450828004');switchLanguage('es', 'img/flags/es.png', true);switchToFullHeight(404684003, 138875005);"><img src="img/flags/es.png">&nbsp;&nbsp;&nbsp;Ir al Navegador...</span><br><span class="small">Edición en español</span></a>
-                    </p>
-                    <h2><span class="i18n" data-i18n-id="i18n_local_extensions">Local Extensions</span></h2>
-                    <p>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Australian Edition 20140531', 'au-edition', 'v20140501', '32570271000036106', 'http://107.170.178.177/api/snomed');switchLanguage('en_US', 'img/flags/us.png', true);switchToFullHeight(404684003, 138875005);"><img src="img/flags/au.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">Australian edition</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Danish Edition 20150206', 'dk-edition', 'v20150206', '554461000005103','http://107.170.143.181/api/snomed');switchLanguage('da', 'img/flags/dk.png', true);switchToFullHeight(404684003, 138875005);"><img src="img/flags/dk.png">&nbsp;&nbsp;&nbsp;G&aring; til browser-siden</span><br><span class="small">Danish edition</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Swedish Edition 20141130', 'se-edition', 'v20141130', '46011000052107', 'http://107.170.34.200/api/snomed');switchLanguage('en_US', 'img/flags/us.png', true);switchToFullHeight(404684003, 138875005);"><img src="img/flags/se.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">Swedish edition</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('United Kingdom Edition 20141001', 'uk-edition', 'v20141001', '999001251000000103', 'http://107.170.178.177/api/snomed');switchLanguage('en_US', 'img/flags/us.png', true);switchToFullHeight(404684003, 138875005);"><img src="img/flags/gb.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">United Kingdom edition</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Netherlands Edition 20140731', 'nl-edition', 'v20140731', '31000146106', 'http://107.170.22.98/api/snomed');switchLanguage('en_US', 'img/flags/us.png', true);switchToFullHeight(404684003, 138875005);"><img src="img/flags/nl.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">Netherlands edition</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('United States Edition 20150301', 'us-edition', 'v20150301', '900000000000509007', 'http://107.170.178.177/api/snomed');switchLanguage('en_US', 'img/flags/us.png', true);switchToFullHeight(404684003, 138875005);"><img src="img/flags/us.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">United States edition</span></a>
-                    </p>
-                    <p>
-                        &nbsp;&nbsp;<span class="i18n" data-i18n-id="i18n_or">or</span>&nbsp;&nbsp;
-                        <a class="btn btn-primary " role="button" onclick="tourStart();"><span class="i18n" data-i18n-id="i18n_take_tour">take the Tour...</span></a></p>
-
-                    <p><span class="i18n" data-i18n-id="i18n_home8">Many thanks to the IHTSDO Member countries who have provided their extensions in this browser. If you would like to enquire further about any of the Member country extensions in this browser, please contact the relevant National Release Center via the URL's below:</span></p>
-                    <p class="lead">
-                        <img src="img/flags/au.png">&nbsp;&nbsp;&nbsp;<a href="http://www.nehta.gov.au" target="_blank">National E-Health Transition Authority (NEHTA), Australia</a>
-                        <br><img src="img/flags/dk.png">&nbsp;&nbsp;&nbsp;<a href="http://www.ssi.dk/English/HealthdataandICT/The%20National%20eHealth%20Authority.aspx" target="_blank">The National eHealth Authority, Denmark</a>
-                        <br><img src="img/flags/se.png">&nbsp;&nbsp;&nbsp;<a href="http://www.socialstyrelsen.se/facksprak" target="_blank">The National Board of Health and Welfare, Sweden</a>
-                        <br><img src="img/flags/gb.png">&nbsp;&nbsp;&nbsp;<a href="http://systems.hscic.gov.uk/data/uktc" target="_blank">The Health and Social Care Information Centre (HSCIC), United Kingdom</a>
-                        <br><img src="img/flags/us.png">&nbsp;&nbsp;&nbsp;<a href="http://www.nlm.nih.gov/" target="_blank">National Library of Medicine (NLM), United States</a>
+                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('MolecularEntityTechPreview Edition 20150401', 'MolecularEntityTechPreview-edition', 'v20150401', '900000000000509007', 'http://localhost:3000/snomed');switchToFullHeight(404684003, 138875005);"><img src="img/box-logo.png" style="height:20px">&nbsp;&nbsp;&nbsp;<span class="i18n"data-i18n-id="i18n_go_browsing">Go browsing...</span><br><span class="small    ">MolecularEntity<br>Tech Preview edition<br>April 2015</span></a>
                     </p>
 
                     <p><span class="i18n" data-i18n-id="i18n_home4">If you would like to get involved in the development, this code is available under an Apache v2 open source license. Please find more information on the <a href="http://ihtsdo.github.io/sct-browser-frontend/" target="_blank">IHTSDO Browser service page</a></span></p>
@@ -1030,6 +841,7 @@
 	FreshWidget.init("", {"queryString": "&widgetType=popup&formTitle=IHTSDO+Browser+Feedback%2FIssue+Reporting&searchArea=no", "backgroundImage": "http://assets.freshdesk.com/widget/help-button.png", "widgetType": "popup", "buttonType": "image", "buttonText": "Support", "buttonColor": "white", "buttonBg": "#00AADD", "alignment": "1", "offset": "-1500px", "formHeight": "500px", "url": "https://ihtsdo.freshdesk.com"} );
 </script>
 
+<!-- Google Analytics script 
 <script type="text/javascript">
 var $buoop = {};
 $buoop.ol = window.onload;
@@ -1041,7 +853,6 @@ window.onload=function(){
  document.body.appendChild(e);
 }
 </script>
-<!-- Google Analytics script -->
         <script>
 			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -1050,8 +861,7 @@ window.onload=function(){
 
   				ga('create', 'UA-41892858-7', 'ihtsdotools.org');
   				ga('send', 'pageview');
-
 		</script>
-
+-->
     </body>
 </html>
