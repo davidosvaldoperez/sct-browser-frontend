@@ -85,10 +85,10 @@
             };
 
             var options = {
-                serverUrl: "http://browser.ihtsdotools.org/api/snomed",
+                serverUrl: "http://10.1.10.106:3000/snomed",
 //                queryServerUrl: "http://sct-rest.ihtsdotools.org/api/snomed/",
-                edition: "en-edition",
-                release: "v20170131",
+                edition: "es-edition",
+                release: "v20171031",
                 showIds: false,
                 hideNotAcceptable: true,
                 displayInactiveDescriptions: false,
@@ -125,11 +125,12 @@
             }
             var manifests;
             function loadManifests(){
+                console.log(options.serverUrl.replace("snomed","")+"server/releases");
                 xhrM = $.getJSON(options.serverUrl.replace("snomed", "") + "server/releases", function (result) {
                     // nothing
                 }).done(function (result) {
                     manifests = result;
-                    //console.log(result);
+                    console.log(result);
                 }).fail(function () {
                     $.notify("Error Terminology server not accessible!", {
                         autoHide: false,
@@ -865,7 +866,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left: 20px; padding-right: 20px;">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="navbar-btn" id="edition-selector">
+                        <!-- <li class="navbar-btn" id="edition-selector">
                             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                                 <span class="i18n" data-i18n-id="i18n_release">Release</span>:&nbsp;<span id="editionLabel">International Edition 20170131</span> <span class="caret"></span>
                             </button>
@@ -882,8 +883,8 @@
                                         reloadCurrentPerspective();">Danish Edition 20170331</a></li>
                                 <li><a href="javascript:void(0);" onclick="switchRelease('Netherlands Edition 20170331', 'nl-edition', 'v20170331', '31000146106', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
                                         reloadCurrentPerspective();">NL Edition 20170331</a></li>
-                               <!--  <li><a href="javascript:void(0);" onclick="switchRelease('Swedish Edition 20161130', 'se-edition', 'v20161130', '46011000052107', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
-                                        reloadCurrentPerspective();">Swedish Edition 20161130</a></li>  -->
+                                <li><a href="javascript:void(0);" onclick="switchRelease('Swedish Edition 20161130', 'se-edition', 'v20161130', '46011000052107', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
+                                        reloadCurrentPerspective();">Swedish Edition 20161130</a></li> 
                                 <li><a href="javascript:void(0);" onclick="switchRelease('Swedish Edition 20170531', 'se-edition', 'v20170531', '46011000052107', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
                                         reloadCurrentPerspective();">Swedish Edition 20170531</a></li>
                                 <li><a href="javascript:void(0);" onclick="switchRelease('United Kingdom Edition 20170401', 'uk-edition', 'v20170401', '900000000000508004', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
@@ -893,7 +894,7 @@
                                 <li><a href="javascript:void(0);" onclick="switchRelease('Uruguay Edition 20160716', 'uy-edition', 'v20160716', '5641000179103', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
                                         reloadCurrentPerspective();">UY Edition 20160716</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li class="navbar-btn" id="perspective-selector">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                 <span class="i18n" data-i18n-id="i18n_perspective">Perspective</span>:&nbsp;<span id="perspectiveLabel"><em>...</em></span> <span class="caret"></span>
@@ -952,13 +953,13 @@
                     <p><span class="i18n" data-i18n-id="i18n_home3">Please provide any feedback by clicking on the feedback button at the top of the page. Your feedback is essential to the evolution and improvement of this service.</span></p>
                     <h2><span class="i18n" data-i18n-id="i18n_international_editions">International Editions</span></h2>
                     <p>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('International Edition 20170131', 'en-edition', 'v20170131', '900000000000509007', 'http://browser.ihtsdotools.org/api/snomed');
-                                switchToFullHeight(404684003, 138875005);"><img src="img/logo.png" style="height:20px">&nbsp;&nbsp;&nbsp;<span class="i18n"data-i18n-id="i18n_go_browsing">Go browsing...</span><br><span class="small    ">International edition<br>January 2017</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Spanish Edition 20170430', 'es-edition', 'v20170430', '450828004', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
+                       <!--  <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('International Edition 20170131', 'en-edition', 'v20170131', '900000000000509007', 'http://browser.ihtsdotools.org/api/snomed');
+                                switchToFullHeight(404684003, 138875005);"><img src="img/logo.png" style="height:20px">&nbsp;&nbsp;&nbsp;<span class="i18n"data-i18n-id="i18n_go_browsing">Go browsing...</span><br><span class="small    ">International edition<br>January 2017</span></a> -->
+                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Spanish Edition 20171031', 'es-edition', 'v20171031', '450828004', 'http://10.1.10.106:3000/snomed');
                                 switchLanguage('es', 'img/flags/es.png', true);
                                 switchToFullHeight(404684003, 138875005);"><img src="img/flags/es.png">&nbsp;&nbsp;&nbsp;Ir al Navegador...</span><br><span class="small">Edición en español</span></a>
                     </p>
-                    <h2><span class="i18n" data-i18n-id="i18n_local_extensions">Local Extensions</span></h2>
+                    <!-- <h2><span class="i18n" data-i18n-id="i18n_local_extensions">Local Extensions</span></h2>
                     <p>
                         <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Australian Edition 20170430', 'au-edition', 'v20170430', '32570271000036106', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
                                 switchLanguage('en_US', 'img/flags/au.png', true);
@@ -977,9 +978,9 @@
                                 switchToFullHeight(404684003, 138875005);"><img src="img/flags/nl.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">Netherlands edition</span></a>
                     </p>
                     <p>
-                        <!--  <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Swedish Edition 20161130', 'se-edition', 'v20161130', '46011000052107', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
+                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Swedish Edition 20161130', 'se-edition', 'v20161130', '46011000052107', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
                                 switchLanguage('se', 'img/flags/se.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/se.png">&nbsp;&nbsp;&nbsp;Börja söka...</span><br><span class="small">Swedish edition</span></a> -->
+                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/se.png">&nbsp;&nbsp;&nbsp;Börja söka...</span><br><span class="small">Swedish edition</span></a>
                         <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Swedish Edition 20170531', 'se-edition', 'v20170531', '46011000052107', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
                                 switchLanguage('se', 'img/flags/se.png', true);
                                 switchToFullHeight(404684003, 138875005);"><img src="img/flags/se.png">&nbsp;&nbsp;&nbsp;Börja söka...</span><br><span class="small">Swedish edition</span></a>
@@ -996,7 +997,7 @@
                     <p>
                         &nbsp;&nbsp;<span class="i18n" data-i18n-id="i18n_or">or</span>&nbsp;&nbsp;
                         <a class="btn btn-primary " role="button" onclick="tourStart();"><span class="i18n" data-i18n-id="i18n_take_tour">take the Tour...</span></a></p>
-
+                     -->
                     <p><span class="i18n" data-i18n-id="i18n_home8">Many thanks to the SNOMED International Member countries who have provided their extensions in this browser. If you would like to enquire further about any of the Member country extensions in this browser, please contact the relevant National Release Center via the URL's below:</span></p>
                     <p class="lead">
                         <img src="img/flags/au.png">&nbsp;&nbsp;&nbsp;<a href="https://www.digitalhealth.gov.au/" target="_blank">Australian Digital Health Agency</a>
