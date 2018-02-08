@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SNOMED International Browser</title>
+        <title>SNOMED Argentina</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="cache-control" content="no-cache">
         <meta name="viewport" content="width=device-width">
@@ -22,7 +22,7 @@
         <script src="external-libs/handlebars-v1.3.0.js"></script>
         <script src="external-libs/bootstrap.min.js" type="text/javascript"></script>
         <script src="external-libs/jquery.ui.touch-punch.min.js"></script>
-        <script src="https://cdn.ravenjs.com/3.9.1/raven.min.js"></script>
+        <!--<script src="https://cdn.ravenjs.com/3.9.1/raven.min.js"></script>-->
         <script src="external-libs/excellentexport.min.js"></script>
         <script src="external-libs/notify.js"></script>
         <script src="external-libs/clipboard.min.js"></script>
@@ -40,7 +40,7 @@
         <script src="snomed-interaction-components/js/snomed-interaction-components-1.35.0.min.js"></script>
         <script src="external-libs/jquery.history.js"></script>
         <script src="external-libs/ZeroClipboard.js"></script>
-        <script>Raven.config('https://ac957d034c844e1abd708918a77b7b30@sentry.io/126782').install();</script>
+        <!--<script>Raven.config('https://ac957d034c844e1abd708918a77b7b30@sentry.io/126782').install();</script>-->
         <script type="text/javascript">
             function getCookie(c_name) {
                 if (document.cookie.length > 0) {
@@ -71,8 +71,8 @@
             }
 
             var enableQueriesInFullPerspective = false;
-            var selectedLanguage = 'en_US';
-            var selectedFlag = 'img/flags/us.png';
+            var selectedLanguage = 'es';
+            var selectedFlag = 'img/flags/ar.png';
             var currentPerspective = "home";
 
             //It can be time consuming to load all the collections into mongo.  If you are only loading one collection
@@ -86,6 +86,7 @@
 
             var options = {
                 serverUrl: "http://termserver.sisa.msal.gov.ar/snomed",
+                // serverUrl: "https://prod-browser-exten.ihtsdotools.org/api/snomed",
 //                queryServerUrl: "http://sct-rest.ihtsdotools.org/api/snomed/",
                 edition: "es-edition",
                 release: "v20171031",
@@ -101,7 +102,7 @@
                 linkerButton: true,
                 subscribersMarker: true,
                 searchMode: "partialMatching",
-                searchLang: "english",
+                searchLang: "spanish",
                 diagrammingMarkupEnabled: false,
                 statusSearchFilter: "activeOnly",
                 highlightByEffectiveTime: "false"
@@ -860,8 +861,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="javascript:void(0);" onclick="initialize();" id="navBarBrand">
-                        <strong>
-                            &nbsp;&nbsp;SNOMED International SNOMED CT Browser</strong></a>
+                        <strong>SNOMED Argentina - Navegador</strong></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left: 20px; padding-right: 20px;">
@@ -935,7 +935,7 @@
                             </ul>
                         </li>
                         <li>
-                            <p class="pull-right"><a href="http://www.snomed.org" target="_blank"><img class="pull-right visible-lg" src="img/snomed-logo.png" style="width:110px;" alt="SNOMED International delivering SNOMED, the global clinical terminology"></a>
+                            <p class="pull-right"><a href="http://www.argentina.gob.ar/salud/snomed" target="_blank"><img class="pull-right visible-lg" src="img/logo-MSAL.jpg" style="width:200px;" alt="SNOMED International delivering SNOMED, the global clinical terminology"></a>
                         </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -947,70 +947,19 @@
             <!-- Welcome Perspective -->
             <div id="welcome-perspective"  class="bperspective">
                 <div class="jumbotron">
-                    <h1><span class="i18n" data-i18n-id="i18n_welcome_2nd">SNOMED International's SNOMED CT Browser</span></h1>
-                    <p><span class="i18n" data-i18n-id="i18n_home1">SNOMED International's SNOMED CT Browser provides ways to browse and search SNOMED CT. The browser has been implemented as part of development within the SNOMED International Open Tooling Framework, by SNOMED International and its development partners</span></p>
-                    <p><span class="i18n" data-i18n-id="i18n_home5">The Browser is provided by the SNOMED International to anyone for reference purposes and the interface and REST APIs are <strong>not</strong> to be used as part of production systems. There are other tools developed by SNOMED International for Members for the use in health care settings.<br>Any abuse of the REST APIs will result in the offending IP address being banned from accessing the browser.</span></p>
-                    <p><span class="i18n" data-i18n-id="i18n_home3">Please provide any feedback by clicking on the feedback button at the top of the page. Your feedback is essential to the evolution and improvement of this service.</span></p>
-                    <h2><span class="i18n" data-i18n-id="i18n_international_editions">International Editions</span></h2>
+                    <h1><span>Navegador de SNOMED Argentina</span></h1>
+                    <br>
+                    <p><span>El <strong>Ministerio de Salud de la Nación Argentina</strong> ha adoptado como parte del <strong>Plan Nacional de Interoperabilidad</strong> el estándar <strong>SNOMED CT</strong> como el vocabulario global para aplicaciones sanitarias, que permite estructurar, registrar, compartir y analizar información en salud.</span></p>
+                    <p><span>Este Navegador permite a los usuarios de la Argentina navegar la terminología como una herrramienta de referencia, pero este navegador no debe utilizarse para fines de registro clínico.</span></p>
+                    <p><span>Los sistemas de <strong>Historia Clínica Electrónica</strong> y otras aplicaciones proveerán el contenido de SNOMED con estratgias, motores de busqueda, y filtrados apropiados para su tilización durante la atención de los pacientes.</span></p>
+                    <p><span>Para más información sobre SNOMED, documentación, y como obtener una licencia gratuita para su uso, visite la página de <strong><a href="https://www.argentina.gob.ar/salud/snomed" target="_blank">SNOMED Argentina</a></strong>.</span></p>
+                    <br>
                     <p>
-                       <!--  <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('International Edition 20170131', 'en-edition', 'v20170131', '900000000000509007', 'http://browser.ihtsdotools.org/api/snomed');
-                                switchToFullHeight(404684003, 138875005);"><img src="img/logo.png" style="height:20px">&nbsp;&nbsp;&nbsp;<span class="i18n"data-i18n-id="i18n_go_browsing">Go browsing...</span><br><span class="small    ">International edition<br>January 2017</span></a> -->
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Spanish Edition 20171031', 'es-edition', 'v20171031', '450828004', 'http://termserver.sisa.msal.gov.ar/snomed');
-                                switchLanguage('es', 'img/flags/es.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/es.png">&nbsp;&nbsp;&nbsp;Ir al Navegador...</span><br><span class="small">Edición en español</span></a>
+                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Edición en Español 20171031', 'es-edition', 'v20171031', '450828004', 'http://termserver.sisa.msal.gov.ar/snomed');
+                                switchLanguage('es', 'img/flags/ar.png', true);
+                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/ar.png">&nbsp;&nbsp;&nbsp;Ir al Navegador...</span><br><span class="small">Edición en español</span></a>
                     </p>
-                    <!-- <h2><span class="i18n" data-i18n-id="i18n_local_extensions">Local Extensions</span></h2>
-                    <p>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Australian Edition 20170430', 'au-edition', 'v20170430', '32570271000036106', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
-                                switchLanguage('en_US', 'img/flags/au.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/au.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">Australian edition</span></a>
-
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Canadian Edition 20170430', 'ca-edition', 'v20170430', '19491000087109,20581000087109', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
-                                switchLanguage('en_US', 'img/flags/ca.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/ca.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">Canadian edition</span></a>
-
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Danish Edition 20170331', 'dk-edition', 'v20170331', '554461000005103', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
-                                switchLanguage('da', 'img/flags/dk.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/dk.png">&nbsp;&nbsp;&nbsp;G&aring; til browser-siden</span><br><span class="small">Danish edition</span></a>
-
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Netherlands Edition 20170331', 'nl-edition', 'v20170331', '31000146106', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
-                                switchLanguage('en_US', 'img/flags/us.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/nl.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">Netherlands edition</span></a>
-                    </p>
-                    <p>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Swedish Edition 20161130', 'se-edition', 'v20161130', '46011000052107', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
-                                switchLanguage('se', 'img/flags/se.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/se.png">&nbsp;&nbsp;&nbsp;Börja söka...</span><br><span class="small">Swedish edition</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Swedish Edition 20170531', 'se-edition', 'v20170531', '46011000052107', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
-                                switchLanguage('se', 'img/flags/se.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/se.png">&nbsp;&nbsp;&nbsp;Börja söka...</span><br><span class="small">Swedish edition</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('United Kingdom Edition 20170401', 'uk-edition', 'v20170401', '900000000000508004', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
-                                switchLanguage('en_GB', 'img/flags/gb.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/gb.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">United Kingdom edition</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('United States Edition 20170301', 'us-edition', 'v20170301', '900000000000509007', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
-                                switchLanguage('en_US', 'img/flags/us.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/us.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">United States edition</span></a>
-                        <a class="btn btn-primary btn-lg" role="button" onclick="switchRelease('Uruguay Edition 20160716', 'uy-edition', 'v20160716', '5641000179103', 'https://prod-browser-exten.ihtsdotools.org/api/snomed');
-                                switchLanguage('es', 'img/flags/uy.png', true);
-                                switchToFullHeight(404684003, 138875005);"><img src="img/flags/uy.png">&nbsp;&nbsp;&nbsp;Go browsing...</span><br><span class="small">Uruguay edition</span></a>
-                    </p>
-                    <p>
-                        &nbsp;&nbsp;<span class="i18n" data-i18n-id="i18n_or">or</span>&nbsp;&nbsp;
-                        <a class="btn btn-primary " role="button" onclick="tourStart();"><span class="i18n" data-i18n-id="i18n_take_tour">take the Tour...</span></a></p>
-                     -->
-                    <p><span class="i18n" data-i18n-id="i18n_home8">Many thanks to the SNOMED International Member countries who have provided their extensions in this browser. If you would like to enquire further about any of the Member country extensions in this browser, please contact the relevant National Release Center via the URL's below:</span></p>
-                    <p class="lead">
-                        <img src="img/flags/au.png">&nbsp;&nbsp;&nbsp;<a href="https://www.digitalhealth.gov.au/" target="_blank">Australian Digital Health Agency</a>
-                        <br><img src="img/flags/ca.png">&nbsp;&nbsp;&nbsp;<a href="https://ic.infoway-inforoute.ca/" target="_blank">Canada Health Infoway, Canada</a>
-                        <br><img src="img/flags/dk.png">&nbsp;&nbsp;&nbsp;<a href="http://www.ssi.dk/English/HealthdataandICT/The%20National%20eHealth%20Authority.aspx" target="_blank">The National eHealth Authority, Denmark</a>
-                        <br><img src="img/flags/nl.png">&nbsp;&nbsp;&nbsp;<a href="http://www.nictiz.nl/page/Standaarden/SNOMED-CT" target="_blank">Nictiz, Netherlands</a>
-                        <br><img src="img/flags/se.png">&nbsp;&nbsp;&nbsp;<a href="http://www.socialstyrelsen.se/facksprak" target="_blank">The National Board of Health and Welfare, Sweden</a>
-                        <br><img src="img/flags/gb.png">&nbsp;&nbsp;&nbsp;<a href="https://digital.nhs.uk/article/290/Terminology-and-Classifications" target="_blank">UK Terminology Centre, NHS Digital, United Kingdom</a>
-                        <br><img src="img/flags/us.png">&nbsp;&nbsp;&nbsp;<a href="http://www.nlm.nih.gov/" target="_blank">National Library of Medicine (NLM), United States</a>
-                        <br><img src="img/flags/uy.png">&nbsp;&nbsp;&nbsp;<a href="http://www.agesic.gub.uy/innovaportal/v/4425/1/agesic/programa-saluduy.html" target="_blank">Salud.uy, Uruguay</a>
-                    </p>
-
-                    <p><span class="i18n" data-i18n-id="i18n_home4">If you would like to get involved in the development, this code is available under an Apache v2 open source license. You can also find more information on the current backlog of feedback that is up for possible development here - <a href="https://confluence.ihtsdotools.org/display/TOOLS/SNOMED+CT+Browser" target="_blank">SNOMED International Browser service page</a></span></p>
+                    <br><br><br>
                 </div>
                 <p><span class="i18n" data-i18n-id="i18n_home6"><span class="btn-success"><em>Releases</em></span> will allow the selection of SNOMED CT content from the International Edition or other extensions, with specific dates.</span></p>
                 <p><span class="i18n" data-i18n-id="i18n_home7"><span class="btn-primary"><em>Perspectives</em></span>  are pre-defined browsing layouts for specific purposes. Use the <a href="javascript:void(0);" onclick="switchToResponsiveLayout(404684003, 404684003, 138875005);">responsive perspective</a> for best results in tablets and phones.</span></p>
@@ -1231,26 +1180,6 @@
         <!--Start Cookie Script-->
         <script type="text/javascript" charset="UTF-8" src="http://chs02.cookie-script.com/s/b80c8456dc1c3b2bd6652feea1124eb1.js"></script>
         <!--End Cookie Script-->
-
-
-        <!-- Google Analytics script -->
-        <script>
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-            ga('create', 'UA-41892858-7', 'ihtsdotools.org');
-            ga('send', 'pageview');
-
-        </script>
 
         <script>
             // History capture of the manual back and forward buttons
